@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { router } from "./router";
-
+import path from "node:path";
 const app = express();
 
 mongoose
@@ -9,6 +9,10 @@ mongoose
 	.then(() => {
 		const port = 3001;
 
+		app.use(
+			"/uploads",
+			express.static(path.resolve(__dirname, "..", "uploads"))
+		); // added this now when use /uploads/{file_name} you'll acess the image
 		app.use(express.json());
 		app.use(router);
 
