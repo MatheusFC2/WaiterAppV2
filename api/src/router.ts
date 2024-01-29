@@ -6,6 +6,10 @@ import { createProduct } from "./app/useCases/products/createProducts";
 import multer from "multer";
 import path from "node:path";
 import { listProductsByCategories } from "./app/useCases/categories/listProductsByCategories";
+import { listOrders } from "./app/useCases/orders/listOrders";
+import { createOrders } from "./app/useCases/orders/createOrders";
+import { changeOrderStatus } from "./app/useCases/orders/changeOrderStatus";
+import { cancelOrders } from "./app/useCases/orders/cancelOrders";
 export const router = Router();
 
 const upload = multer({
@@ -29,18 +33,10 @@ router.post("/products", upload.single("image"), createProduct);
 
 router.get("/categories/:categoryId/products", listProductsByCategories);
 
-router.get("/orders", (req, res) => {
-	res.send("OK");
-});
+router.get("/orders", listOrders);
 
-router.post("/orders", (req, res) => {
-	res.send("OK");
-});
+router.post("/orders", createOrders);
 
-router.patch("/orders/:orderId", (req, res) => {
-	res.send("OK");
-});
+router.patch("/orders/:orderId", changeOrderStatus);
 
-router.delete("/orders/:orderId", (req, res) => {
-	res.send("OK");
-});
+router.delete("/orders/:orderId", cancelOrders);
